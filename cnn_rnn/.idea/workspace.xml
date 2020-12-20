@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="27cf0de7-1b85-4076-a788-783d83a3b90b" name="Default Changelist" comment="" />
+    <list default="true" id="27cf0de7-1b85-4076-a788-783d83a3b90b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train/checkpoint_cnn.pth.tar" beforeDir="false" afterPath="$PROJECT_DIR$/train/checkpoint_cnn.pth.tar" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,7 +15,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/cnn_rnn$extract_features.coverage" NAME="extract_features Coverage Results" MODIFIED="1604327882846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/homework_4/RBP_homework_files" />
     <SUITE FILE_PATH="coverage/cnn_rnn$generate_testfile.coverage" NAME="generate_testfile Coverage Results" MODIFIED="1604323854584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/homework_4/RBP_homework_files" />
-    <SUITE FILE_PATH="coverage/cnn_rnn$main.coverage" NAME="main Coverage Results" MODIFIED="1608436200630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cnn_rnn$main.coverage" NAME="main Coverage Results" MODIFIED="1608455701424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cnn_rnn$RBP_sample_code.coverage" NAME="RBP_sample_code Coverage Results" MODIFIED="1604299568562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/homework_4/RBP_homework_files" />
     <SUITE FILE_PATH="coverage/cnn_rnn$find_100max.coverage" NAME="find_100max Coverage Results" MODIFIED="1604328593780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads/homework_4/RBP_homework_files" />
   </component>
@@ -74,27 +78,58 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1587946710">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="1100" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="1100" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="18" column="57" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="57" />
+            <state relative-caret-position="343">
+              <caret line="389" column="51" selection-start-line="389" selection-start-column="51" selection-end-line="389" selection-end-column="51" />
               <folding>
                 <element signature="e#24#34#0" expanded="true" />
-                <marker date="1608433151000" expanded="true" signature="5152:5523" ph="..." />
+                <element signature="e#3083#3677#0" />
+                <element signature="e#3707#3894#0" />
+                <element signature="e#3927#4095#0" />
+                <marker date="1608455701000" expanded="true" signature="5864:6328" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+            <state relative-caret-position="799">
+              <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
               <folding>
                 <element signature="e#25#37#0" expanded="true" />
               </folding>
@@ -111,6 +146,7 @@
       <find>base_dict</find>
       <find>max_len</find>
       <find>100</find>
+      <find>valid_epoch</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -123,8 +159,8 @@
         <option value="$USER_HOME$/Downloads/homework_4/RBP_homework_files/extract_features.py" />
         <option value="$USER_HOME$/Downloads/homework_4/RBP_homework_files/generate_testfile.py" />
         <option value="$USER_HOME$/Downloads/homework_4/RBP_homework_files/find_100max.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/model.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -175,7 +211,7 @@
         </expanded-state>
         <selected-state>
           <State>
-            <id>Angular</id>
+            <id>PyPep8Inspection</id>
           </State>
         </selected-state>
       </profile-state>
@@ -374,13 +410,13 @@
     <frame x="20" y="23" width="1420" height="818" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25689405" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26052248" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30716252" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30578512" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39944905" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32890856" />
@@ -408,23 +444,33 @@
     <entry file="file://$USER_HOME$/Downloads/homework_4/RBP_homework_files/generate_testfile.py" />
     <entry file="file://$USER_HOME$/Downloads/homework_4/RBP_homework_files/extract_features.py" />
     <entry file="file://$USER_HOME$/Downloads/homework_4/RBP_homework_files/find_100max.py" />
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/numpy/core/shape_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="18" column="57" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="57" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-            <marker date="1608433151000" expanded="true" signature="5152:5523" ph="..." />
-          </folding>
+        <state relative-caret-position="1679">
+          <caret line="339" selection-start-line="339" selection-end-line="339" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+        <state relative-caret-position="799">
+          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
           <folding>
             <element signature="e#25#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="389" column="51" selection-start-line="389" selection-start-column="51" selection-end-line="389" selection-end-column="51" />
+          <folding>
+            <element signature="e#24#34#0" expanded="true" />
+            <element signature="e#3083#3677#0" />
+            <element signature="e#3707#3894#0" />
+            <element signature="e#3927#4095#0" />
+            <marker date="1608455701000" expanded="true" signature="5864:6328" ph="..." />
           </folding>
         </state>
       </provider>
