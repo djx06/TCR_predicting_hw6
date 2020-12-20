@@ -51,6 +51,7 @@ class CNN(nn.Module):
 		#print(logits.shape)
 		logits = self.L(logits)
 		#print(logits.shape)
+		score = torch.softmax(logits,1)[:,1].detach()
 		pred = torch.argmax(logits, 1)  # Calculate the prediction result
 		if y is None:
 			return torch.softmax(logits,dim=1)
@@ -62,8 +63,7 @@ class CNN(nn.Module):
 		correct_pred = (pred.int() == y.int())
 		acc = torch.mean(correct_pred.float())  # Calculate the accuracy in this mini-batch
 		# print(acc)
-		# auc = roc_auc_score(pred.int(), y.int())
-		auc = 0
+		auc = roc_auc_score(y,score)
 		return loss, acc,auc
 
 

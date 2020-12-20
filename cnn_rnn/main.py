@@ -310,6 +310,7 @@ if __name__ == '__main__':
 
 		pre_losses = [1e18] * 3
 		best_val_acc = 0.0
+		best_val_roc = 0.0
 		for epoch in range(1, args.num_epochs+1):
 			start_time = time.time()
 			train_acc, train_loss,train_roc = train_epoch(model, X_train, y_train, optimizer)
@@ -319,6 +320,7 @@ if __name__ == '__main__':
 
 			if val_acc >= best_val_acc:
 				best_val_acc = val_acc
+				best_val_roc = val_roc
 				best_epoch = epoch
 				# test_acc, test_loss = valid_epoch(model, X_test, y_test)
 				with open(os.path.join(args.train_dir, 'checkpoint_{}.pth.tar'.format(args.name)), 'wb') as fout:
@@ -337,7 +339,7 @@ if __name__ == '__main__':
 			print("  validation roc:                " + str(val_roc))
 			print("  best epoch:                    " + str(best_epoch))
 			print("  best validation accuracy:      " + str(best_val_acc))
-
+			print("  best validation auc            " + str(best_val_roc))
 			if train_loss > max(pre_losses):
 				for param_group in optimizer.param_groups:
 					param_group['lr'] = param_group['lr'] * 0.9995
