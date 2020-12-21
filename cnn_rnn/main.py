@@ -9,8 +9,9 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import Levenshtein
 
-from model import CNN,LSTM
+from model import SimpleCNN,ParallelCNN,SiameseCNN
 # from load_data import load_data
 from keras.utils.np_utils import to_categorical
 
@@ -18,7 +19,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('--batch_size', type=int, default=100,
     help='Batch size for mini-batch training and evaluating. Default: 100')
-parser.add_argument('--num_epochs', type=int, default=20,
+parser.add_argument('--num_epochs', type=int, default=50,
     help='Number of training epoch. Default: 20')
 parser.add_argument('--learning_rate', type=float, default=1e-3,
     help='Learning rate during optimization. Default: 1e-3')
@@ -46,7 +47,8 @@ parser.add_argument('--savepred',type=str,default='./predict.txt',
 args = parser.parse_args()
 
 
-bases = ['A', 'C', 'G', 'U']
+# bases = ['A', 'C', 'G', 'U']
+bases = ['A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V','O','B']
 base_dict = {'A': 0, 'R': 1, 'N': 2, 'D': 3, 'C': 4,
              'Q': 5, 'E': 6, 'G': 7, 'H': 8, 'I': 9,
              'L': 10, 'K': 11, 'M': 12, 'F': 13, 'P': 14,
@@ -236,11 +238,18 @@ def train_epoch(model, X, y, optimizer): # Training Process
     model.train()
     loss, acc, roc = 0.0, 0.0, 0.0
     st, ed, times = 0, args.batch_size, 0
+    count = 0
     while st < len(X) and ed <= len(X):
+        count += 1
+        print(count,end='\r')
         optimizer.zero_grad()
         X_batch, y_batch = torch.from_numpy(X[st:ed]).to(device), torch.from_numpy(y[st:ed]).to(device)
-        loss_, acc_, roc_ = model(X_batch, y_batch)
-
+        if args.model == 'siamese':
+            Nx,Ny = edit_distance(X_batch,y_batch)
+            loss_,acc_,roc_ = model(X_batch,y_batch,Nx,Ny)
+        else:
+            loss_, acc_, roc_ = model(X_batch, y_batch)
+        
         loss_.backward()
         optimizer.step()
 
@@ -261,7 +270,12 @@ def valid_epoch(model, X, y): # Valid Process
     st, ed, times = 0, args.batch_size, 0
     while st < len(X) and ed <= len(X):
         X_batch, y_batch = torch.from_numpy(X[st:ed]).to(device), torch.from_numpy(y[st:ed]).to(device)
-        loss_, acc_, roc_= model(X_batch, y_batch)
+        if args.model == 'siamese':
+            Nx,Ny = edit_distance(X_batch,y_batch)
+            loss_,acc_,roc_ = model(X_batch,y_batch,Nx,Ny)
+        else:
+            loss_, acc_, roc_ = model(X_batch, y_batch)
+        # loss_, acc_, roc_= model(X_batch, y_batch)
 
         loss += loss_.cpu().data.numpy()
         acc += acc_.cpu().data.numpy()
@@ -279,18 +293,59 @@ def inference(model, X): # Test Process
     pred_ = model(torch.from_numpy(X).to(device))
     return pred_.cpu().data.numpy()
 
+def to_seq(one_hot):
+    seq = ''
+    # print(one_hot.shape)
+    # print(one_hot)
+    for i in range(one_hot.shape[0]):
+        num = np.where(one_hot[i,:]==1)
+        # print(num[0].shape)
+        if num[0].shape[0]==0:
+            break
+        char = bases[int(num[0])]
+        seq += char
+    # print(seq)
+    return seq
+
+def edit_distance(X,Y):
+    length = X.shape[0]
+    seq_list = []
+    dists = 100*np.ones((X.shape[0],X.shape[0]))
+    count = 0
+    for i in range(length):
+        sequence = to_seq(X[i])
+        seq_list.append(sequence)
+    for i in range(len(seq_list)):
+        for j in range(len(seq_list)):
+            count += 1
+            # print(count)
+            if i == j:
+                continue
+            a = seq_list[i]
+            b = seq_list[j]
+            dist = Levenshtein.distance(a, b)
+            dists[i,j] = dist
+    # print(dists)
+    min = dists.argmin(axis=1)
+    # print(np.min(dists[10,:]))
+    # print(dists[10,min[10]])
+    Nx = X[min,:,:]
+    Ny = Y[min]
+    # print(Nx.shape)
+    # print(Ny.shape)
+    return Nx,Ny
 
 if __name__ == '__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     device = torch.device("cpu")
-    # print(device)
+    print(device)
     if not os.path.exists(args.train_dir):
         os.mkdir(args.train_dir)
 
     if not args.is_test:
 
-        pos_filename=os.path.join(args.pathname,args.dataset+'_positive.txt')
-        neg_filename=os.path.join(args.pathname,args.dataset+'_negative.txt')
+        pos_filename=os.path.join(args.pathname,'new_'+args.dataset+'_positive.txt')
+        neg_filename=os.path.join(args.pathname,'new_'+args.dataset+'_negative.txt')
         #global max_len
         max_len = get_maxlen(pos_filename,neg_filename)
         pos_trainX=load_data(pos_filename)
@@ -324,10 +379,12 @@ if __name__ == '__main__':
         best_val_roc_global = 0.0
 
         for i in range(5):
-            if args.model == "rnn":
-                model = LSTM(max_len, drop_rate=args.drop_rate)
-            else:
-                model = CNN(max_len, drop_rate=args.drop_rate)
+            if args.model == "parallel":
+                model = ParallelCNN(max_len, drop_rate=args.drop_rate)
+            elif args.model == 'cnn':
+                model = SimpleCNN(max_len, drop_rate=args.drop_rate)
+            elif args.model == 'siamese':
+                model = SiameseCNN(max_len,drop_rate=args.drop_rate)
             model.to(device)
             optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
@@ -348,10 +405,9 @@ if __name__ == '__main__':
 
             for epoch in range(1, args.num_epochs+1):
                 start_time = time.time()
-                #print(len(X_train))
+                #print(len(X_train)) 
                 train_acc, train_loss,train_roc = train_epoch(model, X_train, y_train, optimizer)
                 X_train, y_train = shuffle(X_train, y_train, 1)
-
                 val_acc, val_loss, val_roc = valid_epoch(model, X_val, y_val)
 
                 if val_acc >= best_val_acc:
@@ -392,10 +448,10 @@ if __name__ == '__main__':
 
     else:
         print ("Predicting",args.data_dir)
-        if args.model == 'rnn':
-            model = LSTM(max_len,drop_rate=0.5)
+        if args.model == 'parallel':
+            model = ParallelCNN(max_len,drop_rate=0.5)
         else:
-            model = CNN(max_len,drop_rate=0.5)
+            model = SimpleCNN(max_len,drop_rate=0.5)
         model.to(device)
         model_path = os.path.join(args.train_dir, 'checkpoint_%s.pth.tar' % args.name)
         if os.path.exists(model_path):
