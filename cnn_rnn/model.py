@@ -60,7 +60,7 @@ class ParallelCNN(nn.Module):
 		super(ParallelCNN, self).__init__()
 		print("Using Parallel CNN")
 		self.maxlen = maxlen
-		self.kernel_sizes = [1,3,5,7]
+		self.kernel_sizes = [1,3,5,7,9]
 		self.convs = [nn.Sequential(
 			nn.Conv1d(22,128,kernel),
 			nn.BatchNorm1d(128),
